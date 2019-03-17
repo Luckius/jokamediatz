@@ -20,15 +20,6 @@ import flask_whooshalchemy as wa
 
 
 
-
-
-
-
-
-
-
-
-
 @app.route("/")
 @app.route("/home")
 @login_required
@@ -115,7 +106,6 @@ def jokaforum():
 
 
 @app.route("/about")
-@login_required
 def about():
     return render_template('about.html', title='About')
 
@@ -359,17 +349,20 @@ class JokanewsForm(FlaskForm):
 @app.route('/jokanews_file', methods=['GET', 'POST'])
 def jokanews_file():
     form = JokanewsForm()
-    if form.validate_on_submit():
-        filename = photos.save(form.photo.data)
-        file_url = photos.url(filename)
-        new_file = file_url
-        jokanews = Jokanews(title=form.title.data, content=form.content.data,author=current_user, image_file=new_file)
-        db.session.add(jokanews)
-        db.session.commit()
-        flash('Your post has been created!', 'success')
-        return redirect(url_for('jokanews'))
+    if current_user.username == 'jokamediatz':
+        if form.validate_on_submit():
+            filename = photos.save(form.photo.data)
+            file_url = photos.url(filename)
+            new_file = file_url
+            jokanews = Jokanews(title=form.title.data, content=form.content.data,author=current_user, image_file=new_file)
+            db.session.add(jokanews)
+            db.session.commit()
+            flash('Your post has been created!', 'success')
+            return redirect(url_for('jokanews'))
+        else:
+            file_url = None
     else:
-        file_url = None
+        abort(403)
     return render_template('jokanews.html', form=form)
 
 
@@ -512,11 +505,12 @@ def delete_message(message_id):
 @login_required
 def delete_games(message_id):
     message = Games.query.get_or_404(message_id)
-    if message.author != current_user:
+    if current_user.username == 'jokamediatz' or message.author.username==current_user.username:
+        db.session.delete(message)
+        db.session.commit()
+        flash('Your post has been deleted!', 'success')
+    else:
         abort(403)
-    db.session.delete(message)
-    db.session.commit()
-    flash('Your post has been deleted!', 'success')
     return redirect(url_for('games'))
 
 
@@ -527,11 +521,12 @@ def delete_games(message_id):
 @login_required
 def delete_education(message_id):
     message = Education.query.get_or_404(message_id)
-    if message.author != current_user:
+    if current_user.username == 'jokamediatz' or message.author.username==current_user.username:
+        db.session.delete(message)
+        db.session.commit()
+        flash('Your post has been deleted!', 'success')
+    else:
         abort(403)
-    db.session.delete(message)
-    db.session.commit()
-    flash('Your post has been deleted!', 'success')
     return redirect(url_for('education'))
 
 
@@ -541,11 +536,12 @@ def delete_education(message_id):
 @login_required
 def delete_bussnes(message_id):
     message = Bussnes.query.get_or_404(message_id)
-    if message.author != current_user:
+    if current_user.username == 'jokamediatz' or message.author.username==current_user.username:
+        db.session.delete(message)
+        db.session.commit()
+        flash('Your post has been deleted!', 'success')
+    else:
         abort(403)
-    db.session.delete(message)
-    db.session.commit()
-    flash('Your post has been deleted!', 'success')
     return redirect(url_for('bussnes'))
 
 
@@ -554,11 +550,12 @@ def delete_bussnes(message_id):
 @login_required
 def delete_jokanews(message_id):
     message = Jokanews.query.get_or_404(message_id)
-    if message.author != current_user:
+    if current_user.username == 'jokamediatz' or message.author.username==current_user.username:
+        db.session.delete(message)
+        db.session.commit()
+        flash('Your post has been deleted!', 'success')
+    else:
         abort(403)
-    db.session.delete(message)
-    db.session.commit()
-    flash('Your post has been deleted!', 'success')
     return redirect(url_for('jokanews'))
 
 
