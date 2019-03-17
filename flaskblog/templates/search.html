@@ -1,0 +1,303 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div style="background-color:white;margin-bottom:50px;padding-bottom:10px;">
+    <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+      <div class="sidebar-module sidebar-module-inset">
+        <h4>&nbsp&nbsp&nbsp&nbspSearch for anything </h4>
+        <form class="form-inline" method="GET" action="search">
+          <div class="form-group">
+            <lable for="query">Type here</lable>
+            <input type="text" class="form-control" name="query" id="query">
+          </div>
+          <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+      </div>
+    </div>
+    </div>
+
+    {% for post in posts.items %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+              <small class="text-muted">{{ moment(post.date_posted).fromNow() }} </small>
+              <a class="mr-2" href="{{ url_for('post', post_id=post.id) }}">&nbsp &nbspview</a>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <div class="post">{{ post.content }}</div>
+          </div>
+        </article>
+    {% endfor %}
+
+
+    {% for post in messages.items %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+              <small class="text-muted"> {{ moment(post.date_posted).fromNow() }} </small>
+              <a class="mr-2" href="{{ url_for('post', post_id=post.id) }}">&nbsp &nbspview</a>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <div class="post">{{ post.content }}</div>
+            <div class="media">
+              <img class="message-image" src="{{ post.image_file }}">
+            </div>
+          </div>
+        </article>
+    {% endfor %}
+
+
+
+
+    {% for post in games.items %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+              <small class="text-muted"> {{ moment(post.date_posted).fromNow() }} </small>
+              <a class="mr-2" href="{{ url_for('post', post_id=post.id) }}">&nbsp &nbspview</a>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <div class="post">{{ post.content }}</div>
+            <div class="media">
+              <img class="message-image" src="{{ post.image_file }}">
+            </div>
+          </div>
+        </article>
+    {% endfor %}
+
+
+    {% for post in education.items %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+              <small class="text-muted"> {{ moment(post.date_posted).fromNow() }} </small>
+              <a class="mr-2" href="{{ url_for('post', post_id=post.id) }}">&nbsp &nbspview</a>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <div class="post">{{ post.content }}</div>
+            <div class="media">
+              <img class="message-image" src="{{ post.image_file }}">
+            </div>
+          </div>
+        </article>
+    {% endfor %}
+
+
+
+    {% for post in bussnes.items %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+              <small class="text-muted"> {{ moment(post.date_posted).fromNow() }} </small>
+              <a class="mr-2" href="{{ url_for('post', post_id=post.id) }}">&nbsp &nbspview</a>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <div class="post">{{ post.content }}</div>
+            <div class="media">
+              <img class="message-image" src="{{ post.image_file }}">
+            </div>
+          </div>
+        </article>
+    {% endfor %}
+
+
+    {% for post in jokanews.items %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('post', post_id=post.id) }}">&nbsp &nbspview</a>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <div class="post">{{ post.content }}</div>
+          </div>
+        </article>
+    {% endfor %}
+
+
+    {% for post in gamescmt.items %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+              <small class="text-muted"> {{ moment(post.date_posted).fromNow() }} </small>
+              <a class="mr-2" href="{{ url_for('post', post_id=post.id) }}">&nbsp &nbspview</a>
+            </div>
+            <div class="post">{{ post.content }}</div>
+          </div>
+        </article>
+    {% endfor %}
+
+    {% for post in educationcmt.items %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+              <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+              <a class="mr-2" href="{{ url_for('post', post_id=post.id) }}">&nbsp &nbspview</a>
+            </div>
+            <div class="post">{{ post.content }}</div>
+          </div>
+        </article>
+    {% endfor %}
+
+    {% for post in bussnescmt.items %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+              <small class="text-muted"> {{ moment(post.date_posted).fromNow() }} </small>
+              <a class="mr-2" href="{{ url_for('post', post_id=post.id) }}">&nbsp &nbspview</a>
+            </div>
+            <div class="post">{{ post.content }}</div>
+          </div>
+        </article>
+    {% endfor %}
+
+
+
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if posts.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+
+
+    {% for page_num in games.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if games.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+
+
+    {% for page_num in bussnes.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if bussnes.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+
+
+    {% for page_num in education.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if education.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+
+
+    {% for page_num in gamescmt.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if gamescmt.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+
+
+    {% for page_num in educationcmt.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if educationcmt.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+
+
+    {% for page_num in bussnescmt.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if bussnescmt.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+
+
+    {% for page_num in jokanews.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if jokanews.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+
+
+    {% for page_num in messages.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if messages.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('search', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+
+
+{% endblock content %}

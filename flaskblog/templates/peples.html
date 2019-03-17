@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block content %}
+
+    <div style="background-color: white;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbspThese people  followed you</div>
+    <div style="background-color: white;">
+    {% for peple in peples %}
+        {% if peple in current_user.followers %}
+            <ul>
+              <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + peple.image_file) }}">
+              <li><a class="mr-2" href="{{ url_for('user_posts', username=peple.username) }}">{{ peple.username }}</a></li>
+              <li><a class="mr-2" href="#">{{ peple.email }}</a></li>
+            </ul>
+        {% endif %}
+    {% endfor %}
+    </div>
+
+{% endblock content %}

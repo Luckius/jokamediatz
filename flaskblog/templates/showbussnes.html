@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div style="background-color:white;">
+<a class="nav-item nav-link" href="{{ url_for('bussnes_file') }}">&nbsp &nbspStart topic</a>
+</div>
+
+    {% for message in mybussnes %}
+        <article class="media content-section">
+            <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + message.author.image_file) }}">
+            <div class="media-body">
+              <div class="article-metadata">
+                <a class="mr-2" href="{{ url_for('user_message', username=message.author.username) }}">{{ message.author.username }}</a>
+                <small class="text-muted"> {{ moment(message.date_posted).fromNow() }} </small>
+              </div>
+              <a class="article-title" href="{{ url_for('delete_bussnes', message_id=message.id) }}">delete</a>
+              <h1 class="article-title" > {{ message.title }}</h1>
+              <div class="post">{{ message.content }}</div>
+              <div class="media">
+                <img class="message-image" src="{{ message.image_file }}">
+              </div>
+            </div>
+        </article>
+    {% endfor %}
+
+<div style="background-color: white;">
+<a class="nav-item nav-link" href="{{ url_for('bussnescmt') }}">&nbsp &nbspcomment on topic</a>
+</div>
+<br>
+
+
+    {% for message in comments.items %}
+        <article class="media content-section">
+            <div class="media-body">
+              <div class="article-metadata">
+                <a class="mr-2" href="{{ url_for('user_message', username=message.author.username) }}">{{ message.author.username }}</a>
+                <small class="text-muted">{{ message.date_posted.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+                <a class="article-title" href="{{ url_for('delete_bussnescmt', message_id=message.id) }}">delete</a>
+              </div>
+              <div class="post">{{ message.content }}</div>
+            </div>
+        </article>
+    {% endfor %}
+
+
+    {% for page_num in comments.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if comments.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('games', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('games', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+
+{% endblock content %}

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div style="background-color:white;">
+<a class="nav-item nav-link" href="{{ url_for('jokanews_file') }}">&nbsp &nbsp new post</a>
+</div>
+
+    {% for message in myjokanews.items %}
+        <article class="media content-section">
+            <div class="media-body">
+              <a class="mr-2" href="{{ url_for('delete_jokanews', message_id=message.id) }}">delete</a>
+              <h1 class="article-title" > {{ message.title }}</h1>
+              <div class="post">{{ message.content }}</div>
+              <div class="media">
+                <img class="message-image" src="{{ message.image_file }}">
+              </div>
+            </div>
+        </article>
+    {% endfor %}
+
+    {% for page_num in myjokanews.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if myjokanews.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('jokanews', page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('jokanews', page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+
+{% endblock content %}

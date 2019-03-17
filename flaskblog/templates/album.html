@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for album in ouralbum.items %}
+        {% if album.author.username == current_user.username %}
+            <article class="media content-section">
+              <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + album.author.image_file) }}">
+              <div class="media-body">
+                <div class="media">
+                  <img class="message-image" src="{{ album.image_file }}">
+                </div>
+              </div>
+            </article>
+        {% endif %}
+    {% endfor %}
+    {% for page_num in ouralbum.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+        {% if page_num %}
+            {% if ouralbum.page == page_num %}
+                <a class="btn btn-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% else %}
+                <a class="btn btn-outline-info mb-4" href="{{ url_for('home', page=page_num) }}">{{ page_num }}</a>
+            {% endif %}
+            {% else %}
+            ...
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

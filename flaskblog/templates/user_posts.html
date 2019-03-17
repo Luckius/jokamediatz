@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div style="background-color: white;">
+    <h1 class="mb-3"> &nbsp &nbsp{{ user.username }}</h1>
+    {% if user.last_seen %}<small class="text-muted">&nbsp &nbspIs active since:&nbsp&nbsp
+                             {{ moment(user.last_seen).format('LLL') }}</small>{% endif %}
+    <br><br><p><a href="{{ url_for('send_message', recipient=user.username) }}" class="small">
+                                           &nbsp &nbspChat with {{ user.username }}</a></p>
+    <div class="mr-2">
+        <h5>&nbsp &nbspPosts</h5><p>&nbsp &nbsp &nbsp &nbsp &nbsp{{ posts.total }}</p>
+        <h5>&nbsp &nbspFollowers</h5><p>&nbsp &nbsp &nbsp &nbsp &nbsp{{ user.followers.count() }}</p>
+        <h5>&nbsp &nbspFollowing</h5><p>&nbsp &nbsp &nbsp &nbsp &nbsp{{ user.followed.count()}}</p>
+    </div>
+
+
+
+
+        <!--follow/unfollow button -->
+    {% if current_user.is_authenticated %}
+        {% if user != current_user %}
+            {% if not user in current_user.followed %}
+                <h4><a href="{{url_for('follow',username=user.username) }}" class="small">
+                                                                  &nbsp &nbspFollow {{ user.username }}</a></h4>
+            {% else %}
+                <h4><a href="{{ url_for('unfollow', username=user.username) }}" class="small">
+                                                                  &nbsp &nbspUnfollow {{ user.username }}</a></h4>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    </div>
+
+
+
+    {% for post in posts.items %}
+        <article class="media content-section">
+          <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="{{ url_for('user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+              <small class="text-muted"> {{ moment(post.date_posted).fromNow() }} </small>
+            </div>
+            <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <div class="post">{{ post.content }}</div>
+          </div>
+        </article>
+    {% endfor %}
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+      {% if page_num %}
+        {% if posts.page == page_num %}
+          <a class="btn btn-info mb-4" href="{{ url_for('user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+        {% else %}
+          <a class="btn btn-outline-info mb-4" href="{{ url_for('user_posts', username=user.username, page=page_num) }}">{{ page_num }}</a>
+        {% endif %}
+      {% else %}
+        ...
+      {% endif %}
+    {% endfor %}
+
+{% endblock content %}
