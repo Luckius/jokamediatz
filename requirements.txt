@@ -19,7 +19,7 @@ Flask-WhooshAlchemy==0.56
 Flask-WTF==0.14.2
 itsdangerous==1.1.0
 Jinja2==2.10
-Mako==1.0.7
+Mako==1.2.2
 MarkupSafe==1.1.1
 Pillow==5.4.1
 pony==0.7.9
